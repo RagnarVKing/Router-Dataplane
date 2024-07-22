@@ -1,0 +1,40 @@
+# Router Dataplane
+
+This project is a comprehensive simulator of a router in a computer network. It is written in C language and leverages functions from various libraries to manage network packets effectively.
+
+## README Usage
+
+1. sudo pip3 install grip / sudo apt install grip
+2. grip README.md  
+
+## Features
+
+- **IPv4 Packet Handling**: Receives IPv4 packets and processes them according to the following steps:
+  - Checks the destination MAC address in the MAC table. If the MAC address is not found, it sends an ARP request to the router to obtain the MAC address.
+  - Forwards the packet once the MAC address is obtained.
+  
+- **ICMP Packet Handling**: Manages ICMP packets with the following functionalities:
+  - Handles cases where there is not enough time to forward the packet.
+  - Handles cases where there is no route to the destination host.
+  - Forwards the packet if there is a route and sufficient time.
+  
+- **ARP Packet Handling**: Deals with ARP packets by:
+  - Checking if it knows the MAC address of the destination. If found, it forwards the packet.
+  - If the MAC address is not known, it sends an ARP request to obtain the MAC address.
+  - Responds to ARP requests by sending its own MAC address.
+
+- **Timeouts and ICMP Responses**: Detects timeout situations and sends appropriate ICMP messages:
+  - When there is a timeout, it sends ICMP Time Exceeded messages.
+  - When there is a network unreachable situation, it sends ICMP Destination Unreachable messages.
+
+## Code Usage
+
+1. Ensure all necessary dependencies are installed, including the `<arpa/inet.h>` library.
+2. Compile the project using a C compiler, for example: `gcc main.c -o router`.
+3. Run the compiled program: `./router route_table.txt`.
+
+Make sure to provide the `route_table.txt` file for proper router operation.
+
+## Author
+
+Developed by Eftenie Andrei-Vlad
